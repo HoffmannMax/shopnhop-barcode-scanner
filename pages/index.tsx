@@ -4,13 +4,14 @@ import Image from "next/image";
 import { PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
 import { useState } from "react";
+import Productlist from "../components/ProductList"
 
 const Home: NextPage = ({ products }) => {
-    const [productList, setProductList] = useState([""]);
+    const [currProducts, setCurrProducts] = useState([""]);
 
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
-        setProductList(oldList => [...oldList, barcode])
+        setCurrProducts(oldList => [...oldList, barcode])
     };
 
     return (
@@ -27,9 +28,8 @@ const Home: NextPage = ({ products }) => {
                     Welcome to <a href="https://nextjs.org">Next.js!</a>
                 </h1>
 
-                {productList.map((product,key) => (
-                    <p key={key}>{product}</p>
-                ))}
+                <Productlist data={currProducts}></Productlist>
+               
             </main>
         </div>
     );
@@ -39,13 +39,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const prisma = new PrismaClient();
     const products = await prisma.product.findMany();
 
-    // Creating a new record
+    /* Creating a new record
     await prisma.product.create({
         data: {
             barcode: "test",
             price: 1,
         },
     });
+    */
 
     return {
         props: { products },
