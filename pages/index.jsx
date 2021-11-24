@@ -36,12 +36,19 @@ const Home = ({ products }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="grid grid-flow-col">
-                <div className="grid-cols-2">
+            <main className="grid grid-cols-1 md:grid-cols-2">
+                <div className="">
                     <Scanner newScann={onBarcodeScanned}></Scanner>
                 </div>
-                <div className="grid-cols-1">
-                    <Productlist data={currProducts}></Productlist>
+                <div className="flex flex-col  bg-gray-100 p-4">
+                    <h1 className="text-2xl">Scanned Products</h1>
+                    {currProducts.length > 0 ?
+                         <Productlist data={currProducts}></Productlist>
+                    :
+                        <p>Basket Empty</p>
+                    }
+                   
+                    
                 </div>
             </main>
         </div>
