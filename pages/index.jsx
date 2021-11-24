@@ -1,17 +1,19 @@
-import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
 import { useState } from "react";
-import Productlist from "../components/ProductList"
+import Productlist from "../components/ProductList";
 
-const Home: NextPage = ({ products }) => {
+const Home = ({ products }) => {
     const [currProducts, setCurrProducts] = useState([""]);
 
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
-        setCurrProducts(oldList => [...oldList, barcode])
+        setCurrProducts((oldList) => [...oldList, barcode]);
+        fetch("/api/product/" + barcode).then((res) => {
+            console.log(res.body);
+        });
     };
 
     return (
@@ -22,31 +24,24 @@ const Home: NextPage = ({ products }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="back">
-                <Scanner newScann={onBarcodeScanned}></Scanner>
-                <h1 className="">
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
-                <Productlist data={currProducts}></Productlist>
-               
+            <main className="grid grid-flow-col">
+                <div className="grid-cols-2">
+                    <Scanner newScann={onBarcodeScanned}></Scanner>
+                </div>
+                <div className="grid-cols-1">
+                    <Productlist data={currProducts}></Productlist>
+                </div>
             </main>
         </div>
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
     const prisma = new PrismaClient();
     const products = await prisma.product.findMany();
 
-    /* Creating a new record
-    await prisma.product.create({
-        data: {
-            barcode: "test",
-            price: 1,
-        },
-    });
-    */
+   
+    
 
     return {
         props: { products },
