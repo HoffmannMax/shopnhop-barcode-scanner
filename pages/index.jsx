@@ -11,9 +11,8 @@ const Home = ({ products }) => {
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
         setCurrProducts((oldList) => [...oldList, barcode]);
-        fetch("/api/product/" + barcode).then((res) => {
-            console.log(res.body);
-        });
+        fetch("/api/product/" + barcode).then(response=>response.json())
+        .then(data=>{ console.log(data); })
     };
 
     return (
