@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 
 export default function ProductList({ data }) {
-   
+   console.log(data)
 
     return (<>
 
@@ -11,7 +11,7 @@ export default function ProductList({ data }) {
            
             {data && data.map((product, index) => (
                 <li key={`${index}`} className="flex flex-wrap overflow-hidden">
-                    {product}
+                    {product.name}
                 </li>
 
             ))}

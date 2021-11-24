@@ -6,13 +6,14 @@ import { useState } from "react";
 import Productlist from "../components/ProductList";
 
 const Home = ({ products }) => {
-    const [currProducts, setCurrProducts] = useState([""]);
+    const [currProducts, setCurrProducts] = useState([]);
 
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
-        setCurrProducts((oldList) => [...oldList, barcode]);
+        
         fetch("/api/product/" + barcode).then(response=>response.json())
-        .then(data=>{ console.log(data); })
+        .then(data=>{ setCurrProducts((oldList) => [...oldList, data]); })
+        
     };
 
     return (
