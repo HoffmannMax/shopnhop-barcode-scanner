@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, prisma, PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
 import { useState } from "react";
 import Productlist from "../components/ProductList";
@@ -10,10 +10,22 @@ const Home = ({ products }) => {
 
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
-        
-        fetch("/api/product/" + barcode).then(response=>response.json())
-        .then(data=>{ setCurrProducts((oldList) => [...oldList, data]); })
-        
+
+        fetch("/api/product/" + barcode)
+            .then((response) => response.json())
+            .then((data) => {
+                setCurrProducts((oldList) => [...oldList, data]);
+            })
+            .catch((e) => {
+              
+                    //TODO display message to user
+                    if (e.code == '12') {
+                      console.log(
+                        'Prduct not found'
+                      )
+                    }
+                
+            });
     };
 
     return (
@@ -39,9 +51,6 @@ const Home = ({ products }) => {
 export const getServerSideProps = async (context) => {
     const prisma = new PrismaClient();
     const products = await prisma.product.findMany();
-
-   
-    
 
     return {
         props: { products },
