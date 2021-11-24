@@ -45,7 +45,7 @@ const Home = ({ products }) => {
                     {currProducts.length > 0 ?
                          <Productlist data={currProducts}></Productlist>
                     :
-                        <p>Basket Empty</p>
+                        <p>Basket is Empty</p>
                     }
                    
                     
