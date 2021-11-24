@@ -3,6 +3,37 @@ import Head from "next/head";
 import Image from "next/image";
 import { PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
+import { useState } from "react";
+
+const Home: NextPage = ({ products }) => {
+    const [productList, setProductList] = useState([""]);
+
+    const onBarcodeScanned = (barcode) => {
+        console.log("new Barcode ", barcode);
+        setProductList(oldList => [...oldList, barcode])
+    };
+
+    return (
+        <div>
+            <Head>
+                <title>shopNhop</title>
+                <meta name="description" content="Barcode self-checkout App" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
+            <main className="back">
+                <Scanner newScann={onBarcodeScanned}></Scanner>
+                <h1 className="">
+                    Welcome to <a href="https://nextjs.org">Next.js!</a>
+                </h1>
+
+                {productList.map((product,key) => (
+                    <p key={key}>{product}</p>
+                ))}
+            </main>
+        </div>
+    );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const prisma = new PrismaClient();
@@ -19,28 +50,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: { products },
     };
-};
-
-const Home: NextPage = ({ products }) => {
-    return (
-        <div>
-            <Head>
-                <title>shopNhop</title>
-                <meta name="description" content="Barcode self-checkout App" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <main className="back">
-                <Scanner></Scanner>
-                <h1 className="">
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-                {products.map((product) => (
-                    <p key={product.id}>{product.createdAt.toISOString()}</p>
-                ))}
-            </main>
-        </div>
-    );
 };
 
 export default Home;

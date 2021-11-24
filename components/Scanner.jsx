@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import config from "./config.json";
 import Quagga from "quagga";
 
-const Scanner = (props) => {
+export default function Scanner({newScann}) {
     useEffect(() => {
         Quagga.init(config, (err) => {
             if (err) {
@@ -15,7 +15,7 @@ const Scanner = (props) => {
         });
 
         Quagga.onDetected((res) => {
-            console.log(res.codeResult.code);
+            newScann(res.codeResult.code)
         });
     }, []);
 
@@ -27,4 +27,4 @@ const Scanner = (props) => {
     );
 };
 
-export default Scanner;
+
