@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function Cart({ data, removeCallback }) {
     const [currTotal, setCurrTotal] = useState(0);
@@ -12,18 +12,14 @@ export default function Cart({ data, removeCallback }) {
         setCurrTotal(sum);
     }, [data]);
 
-   
-   
-
     return (
-        <>
-            <div className="">
-                <ul className="text-center">
-                    
-                    {//used uuid for key (unique)
+        <div className="">
+            <ul className="text-center">
+                {
+                    //used uuid for key (unique)
                     data &&
                         data.map((product, index) => (
-                           //normaly extra component for cart element
+                            //normaly extra component for cart element
                             <li
                                 key={uuidv4(product.id)}
                                 className="flex flex-wrap flex-row items-center  justify-between overflow-hidden p-2 border-b-2"
@@ -38,13 +34,13 @@ export default function Cart({ data, removeCallback }) {
                                     Remove
                                 </button>
                             </li>
-                        ))}
-                </ul>
-                <p className="">Total: {currTotal}€</p>
-                <button className="w-full p-4 mt-2 bg-green-600 text-white">
-                    Checkout
-                </button>
-            </div>
-        </>
+                        ))
+                }
+            </ul>
+            <p className="p-4 pl-0">Total: {Number(currTotal.toFixed(1))}€</p>
+            <button className="w-full p-4 mt-2 bg-green-600 text-white">
+                Checkout
+            </button>
+        </div>
     );
 }
