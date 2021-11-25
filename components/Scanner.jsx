@@ -29,7 +29,9 @@ export default function Scanner({ newScann }) {
         });
 
         Quagga.onDetected((res) => {
+            console.log(res.codeResult.code)
             newScann(res.codeResult.code);
+            
         });
     }, []);
 

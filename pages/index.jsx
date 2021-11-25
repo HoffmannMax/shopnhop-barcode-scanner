@@ -4,16 +4,20 @@ import { PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
 import { useState } from "react";
 import Cart from "../components/Cart";
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ products }) => {
     const [currProducts, setCurrProducts] = useState([]);
 
+
+    //checks if given barcode is valid 
     const onBarcodeScanned = (barcode) => {
         console.log("new Barcode ", barcode);
 
         fetch("/api/product/" + barcode)
             .then((response) => response.json())
             .then((data) => {
+                data.uuid = uuidv4()
                 setCurrProducts((oldList) => [...oldList, data]);
             })
             .catch((e) => {
@@ -23,6 +27,15 @@ const Home = ({ products }) => {
                 }
             });
     };
+
+
+    //removes item from prductlist depending on uuid
+    function handleRemove(uuid) {
+        console.log(uuid);
+        const newProducts = currProducts.filter((prod) => prod.uuid !== uuid);
+
+        setCurrProducts(newProducts);
+    }
 
     return (
         <div>
@@ -40,7 +53,7 @@ const Home = ({ products }) => {
                     {currProducts.length > 0 ? 
                         <>
                             <h1 className="text-2xl">Scanned Products</h1>
-                            <Cart data={currProducts}></Cart>
+                            <Cart data={currProducts} removeCallback={handleRemove}></Cart>
                         </>
                      : 
                         <div className="flex flex-col justify-center items-center mt-6">

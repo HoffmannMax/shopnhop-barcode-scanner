@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
-export default function Cart({ data }) {
+export default function Cart({ data, removeCallback }) {
     const [currTotal, setCurrTotal] = useState(0);
 
     useEffect(() => {
@@ -11,21 +12,20 @@ export default function Cart({ data }) {
         setCurrTotal(sum);
     }, [data]);
 
-    function handleRemove(id) {
-        console.log(id);
-        //const newList = list.filter((item) => item.id !== id);
-
-        //setList(newList);
-    }
+   
+   
 
     return (
         <>
             <div className="">
                 <ul className="text-center">
-                    {data &&
+                    
+                    {//used uuid for key (unique)
+                    data &&
                         data.map((product, index) => (
+                           
                             <li
-                                key={`${index}`}
+                                key={uuidv4(product.id)}
                                 className="flex flex-wrap flex-row items-center  justify-between overflow-hidden p-2 border-b-2"
                             >
                                 <p className="">{product.name}</p>
@@ -33,7 +33,7 @@ export default function Cart({ data }) {
                                 <button
                                     type="button"
                                     className="bg-red-400 p-2 rounded-md"
-                                    onClick={() => handleRemove(index)}
+                                    onClick={() => removeCallback(product.uuid)}
                                 >
                                     Remove
                                 </button>
