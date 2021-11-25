@@ -57,7 +57,6 @@ yarn prisma db push
 **relevant tables: Product, CartItem, Customer**
 
 For further understanding the schema can be found under /prisma/schema.prisma
-
 In addition to that the database contains all needed tables for **NextAuth**.
 
 ### Customer (not finished):
