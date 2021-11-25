@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import Image from 'next/image'
 
 export default function Navbar() {
     const [active, setActive] = useState(false);
@@ -11,10 +12,8 @@ export default function Navbar() {
     return (
         <>
             <nav className="flex items-center flex-wrap bg-green-400 p-3 ">
-                <Link href="/">
-                    <a className="inline-flex items-center p-2 mr-4 ">
-                        shopNhop
-                    </a>
+                <Link href="/" >
+                    <Image className="cursor-pointer" src="/../public/shopNhop_logo.png" width={200} height={60}></Image>
                 </Link>
                 <button
                     className=" inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto hover:text-white outline-none"

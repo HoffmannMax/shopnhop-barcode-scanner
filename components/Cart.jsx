@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-export default function ProductList({ data }) {
+export default function Cart({ data }) {
     const [currTotal, setCurrTotal] = useState(0);
 
     useEffect(() => {
+        //summ up all items in cart
         let sum = data.reduce(function (prev, current) {
             return prev + current.price;
         }, 0);
@@ -30,7 +31,8 @@ export default function ProductList({ data }) {
                                 <p className="">{product.name}</p>
                                 <p className="text-red">{product.price}€</p>
                                 <button
-                                    type="button" className="bg-red-400 p-2 rounded-md"
+                                    type="button"
+                                    className="bg-red-400 p-2 rounded-md"
                                     onClick={() => handleRemove(index)}
                                 >
                                     Remove

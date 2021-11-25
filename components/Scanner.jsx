@@ -4,9 +4,11 @@ import Quagga from "quagga";
 
 export default function Scanner({newScann}) {
     useEffect(() => {
+        
+        //barcode scanner init
         Quagga.init(config, (err) => {
             if (err) {
-                console.log(err, "error msg");
+                console.log(err, "Quagga error message");
             }
             Quagga.start();
             return () => {

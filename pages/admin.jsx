@@ -1,11 +1,15 @@
 import Head from "next/head";
 import { useState } from "react";
 
+import { PrismaClient } from "@prisma/client";
 //4260641140039
-const Admin = (props) => {
+const Admin = ({products}) => {
+
+    //POST new Product to Database
     const onBarcodeSubmit = (event) => {
         event.preventDefault();
         console.log(barcode, name, price);
+
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -16,6 +20,8 @@ const Admin = (props) => {
             .then((data) => console.log(data));
     };
 
+
+    //stores current values of form
     const [barcode, setBarcode] = useState("");
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -23,7 +29,7 @@ const Admin = (props) => {
     return (
         <div>
             <Head>
-                <title>Admin</title>
+                <title>Admin Page</title>
                 <meta name="description" content="Barcode self-checkout App" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -67,9 +73,20 @@ const Admin = (props) => {
                         Add Product
                     </button>
                 </form>
+              
             </div>
         </div>
     );
 };
+
+export const getServerSideProps = async (context) => {
+    const prisma = new PrismaClient();
+    const products = await prisma.product.findMany();
+
+    return {
+        props: { products },
+    };
+};
+
 
 export default Admin;

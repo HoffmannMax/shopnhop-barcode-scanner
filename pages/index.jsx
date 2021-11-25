@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Prisma, prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import Scanner from "../components/Scanner";
 import { useState } from "react";
-import Productlist from "../components/ProductList";
+import Cart from "../components/Cart";
 
 const Home = ({ products }) => {
     const [currProducts, setCurrProducts] = useState([]);
@@ -17,14 +17,10 @@ const Home = ({ products }) => {
                 setCurrProducts((oldList) => [...oldList, data]);
             })
             .catch((e) => {
-              
-                    //TODO display message to user
-                    if (e.code == '12') {
-                      console.log(
-                        'Prduct not found'
-                      )
-                    }
-                
+                //TODO display message to user
+                if (e.code == "12") {
+                    console.log("Prduct not found");
+                }
             });
     };
 
@@ -41,14 +37,17 @@ const Home = ({ products }) => {
                     <Scanner newScann={onBarcodeScanned}></Scanner>
                 </div>
                 <div className="flex flex-col  bg-gray-100 p-4">
-                    <h1 className="text-2xl">Scanned Products</h1>
-                    {currProducts.length > 0 ?
-                         <Productlist data={currProducts}></Productlist>
-                    :
-                        <p>Basket is Empty</p>
-                    }
-                   
-                    
+                    {currProducts.length > 0 ? (
+                        <>
+                            <h1 className="text-2xl">Scanned Products</h1>
+                            <Cart data={currProducts}></Cart>
+                        </>
+                    ) : (
+                        <div className="flex flex-col justify-center items-center mt-6">
+                            <h1 className="text-2xl">Currently no Items in Basket</h1>
+                            <p>please scan a barcode to begin</p>
+                        </div>
+                    )}
                 </div>
             </main>
         </div>
