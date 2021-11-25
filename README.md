@@ -13,10 +13,9 @@ The rough requirements are:
 - Admin page to add new products - MongoDB database for storage
 
 ### Pages:
--index: 
-Barcode scanner and cart, Checkout is not functional
-but should add products into CartItems table a link them with the customer
--admin: Scan a barcode to fill the input field or type by hand -> create new product
+
+- index: Barcode scanner and cart, Checkout is not functionalbut should add products into CartItems table a link them with the customer
+- admin: Scan a barcode to fill the input field or type by hand -> create new product
 
 ## FRONTEND
 I started out using the **create-next-app** starter with Typescript but I quickly realized that would be too much overhead for a MVP.
@@ -49,7 +48,7 @@ Very important canvas.drawingbuffer isn't affected by min values in QUAGGA confi
 For persitant Storage MongoDB is used as database hosted on [MongoDB](https://www.mongodb.com/)
 Prisma.io is used as an ORM between and offers easy schemas and handles requests.
 
-If the Db schema is changed following commands are needed to deploy to DB
+If the db schema is changed following commands are needed to deploy
 ```
 yarn prisma generate
 yarn prisma db push
