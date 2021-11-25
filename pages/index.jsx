@@ -37,17 +37,17 @@ const Home = ({ products }) => {
                     <Scanner newScann={onBarcodeScanned}></Scanner>
                 </div>
                 <div className="flex flex-col  bg-gray-100 p-4">
-                    {currProducts.length > 0 ? (
+                    {currProducts.length > 0 ? 
                         <>
                             <h1 className="text-2xl">Scanned Products</h1>
                             <Cart data={currProducts}></Cart>
                         </>
-                    ) : (
+                     : 
                         <div className="flex flex-col justify-center items-center mt-6">
                             <h1 className="text-2xl">Currently no Items in Basket</h1>
                             <p>please scan a barcode to begin</p>
                         </div>
-                    )}
+                    }
                 </div>
             </main>
         </div>

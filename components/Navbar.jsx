@@ -13,7 +13,7 @@ export default function Navbar() {
         <>
             <nav className="flex items-center flex-wrap bg-green-400 p-3 ">
                 <Link href="/" >
-                    <Image className="cursor-pointer" src="/../public/shopNhop_logo.png" width={200} height={60}></Image>
+                    <Image className="cursor-pointer" src="/shopNhop_logo.png" width={200} height={60}></Image>
                 </Link>
                 <button
                     className=" inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto hover:text-white outline-none"
