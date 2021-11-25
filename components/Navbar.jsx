@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Navbar() {
     const [active, setActive] = useState(false);
@@ -11,9 +11,17 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="flex items-center flex-wrap bg-green-400 p-3 ">
-                <Link href="/" >
-                    <Image className="cursor-pointer" src="/shopNhop_logo.png" width={200} height={60}></Image>
+            <nav className="flex items-center content-center flex-wrap bg-green-400 p-3 h-20 ">
+                <Link href="/">
+                    <a>
+                        <Image
+                            className="cursor-pointer"
+                            src="/shopNhop_logo.png"
+                            alt="hopNshop logo"
+                            width={200}
+                            height={60}
+                        ></Image>
+                    </a>
                 </Link>
                 <button
                     className=" inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto hover:text-white outline-none"
@@ -40,9 +48,9 @@ export default function Navbar() {
                         active ? "" : "hidden"
                     }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
                 >
-                    <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
+                    <div className="lg:inline-flex mr-2 lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
                         <Link href="/admin">
-                            <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white">
+                            <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center hover:bg-green-600 hover:text-white">
                                 Admin
                             </a>
                         </Link>
@@ -51,4 +59,4 @@ export default function Navbar() {
             </nav>
         </>
     );
-};
+}

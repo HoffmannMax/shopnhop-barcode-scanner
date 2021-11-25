@@ -5,6 +5,7 @@ import Scanner from "../components/Scanner";
 import { useState } from "react";
 import Cart from "../components/Cart";
 import { v4 as uuidv4 } from 'uuid';
+import prisma from "../prisma/client"
 
 const Home = ({ products }) => {
     const [currProducts, setCurrProducts] = useState([]);
@@ -45,9 +46,9 @@ const Home = ({ products }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="grid grid-cols-1 md:grid-cols-2">
+            <main id="content-container" className="grid grid-cols-1 md:grid-cols-2">
                 <div className="">
-                    <Scanner newScann={onBarcodeScanned}></Scanner>
+                    <Scanner newScan={onBarcodeScanned}></Scanner>
                 </div>
                 <div className="flex flex-col  bg-gray-100 p-4">
                     {currProducts.length > 0 ? 
@@ -68,7 +69,7 @@ const Home = ({ products }) => {
 };
 
 export const getServerSideProps = async (context) => {
-    const prisma = new PrismaClient();
+    
     const products = await prisma.product.findMany();
 
     return {

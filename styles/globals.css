@@ -14,3 +14,17 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.barcode-scanner video, canvas {
+  width: 100%;
+  height: auto;
+}
+
+.barcode-scanner video.drawingBuffer, canvas.drawingBuffer {
+  display: none;
+}
+
+#content-container{
+  height: calc(100vh - 9rem);
+}

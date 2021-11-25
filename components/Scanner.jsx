@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import config from "./config.json";
+import config from "./quaggaConfig.json";
 import Quagga from "quagga";
 
-export default function Scanner({ newScann }) {
+
+
+export default function Scanner({ newScan }) {
     const [cameraPermission, setCameraPermission] = useState(true);
 
 
@@ -30,7 +32,7 @@ export default function Scanner({ newScann }) {
 
         Quagga.onDetected((res) => {
             console.log(res.codeResult.code)
-            newScann(res.codeResult.code);
+            newScan(res.codeResult.code);
             
         });
     }, []);
@@ -40,7 +42,7 @@ export default function Scanner({ newScann }) {
         // QuaggaJS would look for an element that matches
         // the CSS selector #interactive.viewport
         cameraPermission ? (
-            <div id="interactive" className="viewport" />
+            <div id="interactive" className="viewport w-full barcode-scanner" />
         ) : (
             
             <div className="flex flex-col justify-center items-center mt-6">

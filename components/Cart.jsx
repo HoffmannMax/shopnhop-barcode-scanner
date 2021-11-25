@@ -23,7 +23,7 @@ export default function Cart({ data, removeCallback }) {
                     {//used uuid for key (unique)
                     data &&
                         data.map((product, index) => (
-                           
+                           //normaly extra component for cart element
                             <li
                                 key={uuidv4(product.id)}
                                 className="flex flex-wrap flex-row items-center  justify-between overflow-hidden p-2 border-b-2"
